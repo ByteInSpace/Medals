@@ -1,0 +1,26 @@
+<table>
+
+<tr>
+	<th>Name</th>
+	<th>Vorname</th>
+	<th>NationID</th>
+	<th>Medaleur</th>
+</tr>
+<?php 
+
+    foreach ($this->vars["PERSON"] as $person)
+    {
+        ?>
+	<tr>
+		<td><?php echo $person->Name; ?></td>        
+        <td><?php echo $person->Vorname; ?></td>
+        <td><?php echo $person->NationID; ?></td>
+        <td><?php echo ($person->Medaleur ? "Ja" : "Nein"); ?></td>
+       </tr>
+<?php 
+    }
+
+?>
+
+	
+</table>

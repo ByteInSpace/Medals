@@ -3,8 +3,9 @@
 <tr>
 	<th>Name</th>
 	<th>Vorname</th>
-	<th>NationID</th>
 	<th>Medaleur</th>
+	<th></th>
+	<th></th>
 </tr>
 <?php 
 
@@ -14,13 +15,16 @@
 	<tr>
 		<td><?php echo $person->Name; ?></td>        
         <td><?php echo $person->Vorname; ?></td>
-        <td><?php echo $person->NationID; ?></td>
         <td><?php echo ($person->Medaleur ? "Ja" : "Nein"); ?></td>
+        <td><a href="edit/<?php echo $person->ID?>">Bearbeiten</a></td>
+        <td><a href="delete/<?php echo $person->ID?>">Löschen</a></td>
        </tr>
 <?php 
     }
 
 ?>
-
-	
 </table>
+
+<br/>
+<br/>
+Neuen anlegen

@@ -29,9 +29,9 @@ class View
             throw new NotFoundException();
         }
         // spare the view the bloat of using "$this->vars[]" for every variable
-//         foreach ($this->vars as $key => $val) {
-//             $$key = $val;
-//         }
+         foreach ($this->vars as $key => $val) {
+             $$key = $val;
+         }
         include $fileName;
         
         $this->render_footer();

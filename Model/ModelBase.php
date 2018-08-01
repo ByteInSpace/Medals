@@ -64,7 +64,7 @@ abstract class ModelBase
         $table = $model->getSource();
         /** @var \PDO $pdo */
         $pdo = $model->getPdo();
-        $sql = 'SELECT * FROM '.$table;
+        $sql = 'SELECT * FROM '.$table . " WHERE Deleted=0";
         $stmt = $pdo->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_CLASS, get_class($model));
     }
@@ -94,6 +94,28 @@ abstract class ModelBase
                 throw new \RuntimeException('Could not update '.get_class($this).': '.$pdo->errorInfo()[2]);
             }
         }
+    }
+    
+    /**
+     * Function will NOT in fact delete entry from database, only set DELETED = Flag to true.
+     * For real delete use delete_hard()
+     */
+    public function delete($id)
+    {
+        $model = new static();
+        $table = $model->getSource();
+        /** @var \PDO $pdo */
+        $pdo = $model->getPdo();
+        $sql = 'UPDATE '.$table . " SET Deleted=1 WHERE ID=" . $id;
+        if ($pdo->exec($sql) === false) {
+            throw new \RuntimeException('Could not delete entry $id from $table');
+        }
+        
+    }
+    
+    public function delete_hard()
+    {
+        
     }
     
     /**

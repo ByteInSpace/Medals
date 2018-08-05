@@ -18,10 +18,14 @@ abstract class PersonController implements Controller
       
     public function editAction()
     {
-        echo "Edit";
-        $url      = (isset($_GET['_url']) ? $_GET['_url'] : '');
-        $urlParts = explode('/', $url);
-        echo "gefunden: $urlParts[2]";
+        $id = intval($_GET['ID']);
+        $person = Person::findFirst($id);
+        $land = Land::findAll('');
+        $this->view->setArray($land, "LAND");
+        $this->view->setVars([
+            'PERSON' => $person,
+        ]);
+        
     }
     
     public function deleteAction()
@@ -44,9 +48,12 @@ abstract class PersonController implements Controller
         $this->view->setArray($land, "LAND");
     }
     
-    public function addNewDoneAction()
+   
+    
+    private function mapRequestToObject()
     {
         $person = new Person();
+        $person->ID = $_GET['ID'];
         $person->Name = $_GET['name'];
         $person->Vorname = $_GET['vorname'];
         $person->Curriculum_DEU = $_GET['curriculum_deu'];
@@ -58,6 +65,31 @@ abstract class PersonController implements Controller
         $person->Medaleur = (empty($_GET['medaleur']) ? '0' : '1');
         $person->Autor = (empty($_GET['autor']) ? '0' : '1');
         $person->Deleted = '0';
+        return $person;
+    }
+    
+    public function editDoneAction()
+    {
+        $person = $this->mapRequestToObject();
+        
+        try
+        {
+            $person->save();
+            $this->view->setVars([
+                'updated' => "Successfull",
+            ]);
+        }
+        catch (RuntimeException $e) {
+            $errorMessage = $e->getMessage();
+            $this->view->setVars([
+                'updated' => $errorMessage,
+            ]);
+        }
+    }
+    
+    public function addNewDoneAction()
+    {
+        $person = $this->mapRequestToObject();
         
 //         var_dump($person);
         try 

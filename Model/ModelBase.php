@@ -79,7 +79,7 @@ abstract class ModelBase
         $table = $this->getSource();
         /** @var \PDO $pdo */
         $pdo = $this->getPdo();
-        if ($this->id === null) {
+        if ($this->ID === null) {
             // new entry
             if (method_exists($this, 'beforeCreate')) {
                 $this->beforeCreate();
@@ -94,7 +94,7 @@ abstract class ModelBase
             if (method_exists($this, 'beforeUpdate')) {
                 $this->beforeUpdate();
             }
-            if ($pdo->exec('UPDATE `'.$table.'` SET '.implode(',', $this->getFields()).' WHERE `id` = '.((int)$this->id)) === false) {
+            if ($pdo->exec('UPDATE `'.$table.'` SET '.implode(',', $this->getFields()).' WHERE `ID` = '.((int)$this->ID)) === false) {
                 throw new \RuntimeException('Could not update '.get_class($this).': '.$pdo->errorInfo()[2]);
             }
         }

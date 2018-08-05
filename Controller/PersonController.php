@@ -1,6 +1,7 @@
 <?php
 namespace Medal\Controller;
 
+use Medal\Model\Land;
 use Medal\Model\Person;
 use RuntimeException;
 
@@ -35,9 +36,40 @@ abstract class PersonController implements Controller
                 'deleted' => 'Unable to delete',
             ]);
         }
-            
-            
+    }
+    
+    public function addNewAction()
+    {
+        $land = Land::findAll('');
+        $this->view->setArray($land, "LAND");
+    }
+    
+    public function addNewDoneAction()
+    {
+        $person = new Person();
+        $person->Name = $_GET['name'];
+        $person->Vorname = $_GET['vorname'];
+        $person->Curriculum_DEU = $_GET['curriculum_deu'];
+        $person->Curriculum_PL = $_GET['curriculum_pl'];
+        $person->NationID = $_GET['nationID'];
+        $person->Image = $_GET['image'];
+        $person->Image_Copyright = $_GET['image_copyright'];
+        $person->Wikipedia = $_GET['wikipedia'];
+        $person->Medaleur = (empty($_GET['medaleur']) ? '0' : '1');
+        $person->Autor = (empty($_GET['autor']) ? '0' : '1');
+        $person->Deleted = '0';
         
+//         var_dump($person);
+        try 
+        {
+            $person->save();
+        }
+        catch (RuntimeException $e) {
+            $errorMessage = $e->getMessage();
+            $this->view->setVars([
+                'added' => $errorMessage,
+            ]);
+        }
     }
     
     private function getID()
@@ -46,5 +78,7 @@ abstract class PersonController implements Controller
         $urlParts = explode('/', $url);
         return $urlParts[2];
     }
+    
+   
     
 }

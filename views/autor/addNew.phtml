@@ -1,0 +1,55 @@
+<?php 
+
+    
+?>
+
+<h1>Neuen Medaleur anlegen</h1>
+
+<form action="addNewDone" id="person">
+
+	<p><label class="h2" form="person">Daten des Autors</label></p>
+	
+	<table>
+    	<tr>
+    		<td><label for="vorname">Vorname:</label></td>
+    		<td><input type="text" name="vorname" maxlength=30"></td>
+    	</tr>
+    	<tr>
+    		<td><label for="name">Nachname:</label></td>
+    		<td><input type="text" name="name" maxlength=30"></td>
+    	</tr>
+    	<tr>
+    		<td><label for="nationID">Nationalität:</label></td>
+    		<td><input type="text" name="nationid" maxlength="100">1</td>
+    	</tr>
+    	<tr>
+    		<td><label for="curriculum_deu">Lebenslauf:</label></td>
+    		<td><textarea cols="50" rows="10" name="curriculum_deu"></textarea></td>
+    	</tr>
+    	<tr>
+    		<td><label for="curriculum_pl">Zyciorys:</label></td>
+    		<td><textarea cols="50" rows="10" name="curriculum_pl"></textarea></td>
+    	</tr>
+    	<tr>
+    		<td><label for="image">Bild:</label></td>
+    		<td><input type="text" name="image" maxlength="100"></td>
+    	</tr>
+    	<tr>
+    		<td><label for="copyright">Bild copyright:</label></td>
+    		<td><input type="text" name="image_copyright" maxlength=150"></td>
+    	</tr>
+    	<tr>
+    		<td><label for="wikipedia">Wikipedia:</label></td>
+    		<td><input type="text" name="wikipedia" maxlength=150"></td>
+		</tr>
+	</table>
+	
+	<input type="hidden" name="autor" value="1">
+	
+ 	<p><button type="reset">Eingaben zurücksetzen</button> 
+ 	<button type="submit">Eingaben absenden</button></p>
+
+</form>
+
+
+

@@ -1,0 +1,32 @@
+<h1>Medaleure</h1>
+
+<table>
+
+<tr>
+	<th>Name</th>
+	<th>Vorname</th>
+	<th>Medaleur</th>
+	<th></th>
+	<th></th>
+</tr>
+<?php 
+
+    foreach ($this->vars["PERSON"] as $person)
+    {
+        ?>
+	<tr>
+		<td><?php echo $person->Name; ?></td>        
+        <td><?php echo $person->Vorname; ?></td>
+        <td><?php echo ($person->Medaleur ? "Ja" : "Nein"); ?></td>
+        <td><a href="edit/<?php echo $person->ID?>">Bearbeiten</a></td>
+        <td><a href="delete/<?php echo $person->ID?>" onclick="return confirm('Bist Du sicher?')">Löschen</a></td>
+       </tr>
+<?php 
+    }
+
+?>
+</table>
+
+<br/>
+<br/>
+Neuen anlegen

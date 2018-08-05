@@ -1,9 +1,11 @@
+<h1>Autoren</h1>
+
 <table>
 
 <tr>
 	<th>Name</th>
 	<th>Vorname</th>
-	<th>Medaleur</th>
+	<th>Autor</th>
 	<th></th>
 	<th></th>
 </tr>
@@ -15,7 +17,7 @@
 	<tr>
 		<td><?php echo $person->Name; ?></td>        
         <td><?php echo $person->Vorname; ?></td>
-        <td><?php echo ($person->Medaleur ? "Ja" : "Nein"); ?></td>
+        <td><?php echo ($person->Autor ? "Ja" : "Nein"); ?></td>
         <td><a href="edit/<?php echo $person->ID?>">Bearbeiten</a></td>
         <td><a href="delete/<?php echo $person->ID?>" onclick="return confirm('Bist Du sicher?')">Löschen</a></td>
        </tr>

@@ -58,13 +58,17 @@ abstract class ModelBase
         return $stmt->fetchAll(\PDO::FETCH_CLASS, get_class($model));
     }
     
-    public static function findAll()
+    public static function findAll($criteria)
     {
         $model = new static();
         $table = $model->getSource();
         /** @var \PDO $pdo */
         $pdo = $model->getPdo();
         $sql = 'SELECT * FROM '.$table . " WHERE Deleted=0";
+        if (!empty($criteria))
+        {
+            $sql = $sql . " AND " . $criteria;
+        }
         $stmt = $pdo->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_CLASS, get_class($model));
     }

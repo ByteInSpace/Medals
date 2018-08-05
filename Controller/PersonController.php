@@ -1,11 +1,10 @@
 <?php
 namespace Medal\Controller;
 
-use Medal\Library\NotFoundException;
 use Medal\Model\Person;
 use RuntimeException;
 
-class PersonController implements Controller
+abstract class PersonController implements Controller
 {
     /** @var \Medal\Library\View */
     protected $view;
@@ -14,12 +13,7 @@ class PersonController implements Controller
         $this->view = $view;
     }
     
-    public function showAllAction()
-    {
-        $persons = Person::findAll();
-        $this->view->setArray($persons, "PERSON");
-        
-    }
+    abstract public function showAllAction();
       
     public function editAction()
     {

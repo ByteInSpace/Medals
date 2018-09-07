@@ -1,11 +1,11 @@
 <?php
 namespace Medal\Controller;
 
-use Medal\Model\Land;
-use Medal\Model\Person;
+use Medal\Model\Manufacturer;
+use Medal\Model\Storage;
 use RuntimeException;
 
-abstract class PersonController implements Controller
+class StorageController implements Controller
 {
     /** @var \Medal\Library\View */
     protected $view;
@@ -14,17 +14,26 @@ abstract class PersonController implements Controller
         $this->view = $view;
     }
     
-    abstract public function showAllAction();
+    public function showAllAction()
+    {
+        
+        $storage = Storage::findAll('');
+        $this->view->setArray($storage, "STORAGE");
+        
+        $manufacturer = Manufacturer::findAll('');
+        $this->view->setArray($manufacturer, "MANUFACTURER");
+        
+    }
       
     public function editAction()
     {
         //$id = intval($_GET['ID']);
         $id = intval($this->getID());
-        $person = Person::findFirst($id);
-        $land = Land::findAll('');
-        $this->view->setArray($land, "LAND");
+        $storage = Storage::findFirst($id);
+        $manufacturer = Manufacturer::findAll('');
+        $this->view->setArray($manufacturer, "MANUFACTURER");
         $this->view->setVars([
-            'PERSON' => $person,
+            'STORAGE' => $storage,
         ]);
         
     }
@@ -33,7 +42,7 @@ abstract class PersonController implements Controller
     {
         try {
             $id = $this->getID();
-            Person::delete($id);
+            Storage::delete($id);
             $this->view->setVars(['deleted' => 'Successfully deleted']);
         }
         catch (RuntimeException $e) {
@@ -45,37 +54,28 @@ abstract class PersonController implements Controller
     
     public function addNewAction()
     {
-        $land = Land::findAll('');
-        $this->view->setArray($land, "LAND");
+        $manufacturer = Manufacturer::findAll('');
+        $this->view->setArray($manufacturer, "MANUFACTURER");
     }
     
    
     
     private function mapRequestToObject()
     {
-        $person = new Person();
-        $person->ID = $_POST['ID'];
-        $person->Name = $_POST['name'];
-        $person->Vorname = $_POST['vorname'];
-        $person->Curriculum_DEU = $_POST['curriculum_deu'];
-        $person->Curriculum_PL = $_POST['curriculum_pl'];
-        $person->NationID = $_POST['nationID'];
-        $person->Image = $_POST['image'];
-        $person->Image_Copyright = $_POST['image_copyright'];
-        $person->Wikipedia = $_POST['wikipedia'];
-        $person->Medaleur = (empty($_POST['medaleur']) ? '0' : '1');
-        $person->Autor = (empty($_POST['autor']) ? '0' : '1');
-        $person->Deleted = '0';
-        return $person;
+        $storage = new Storage();
+        $storage->ID = $_POST['ID'];
+        $storage->Name = $_POST['name'];
+        $storage->ManufacturerID = $_POST['manufacturerID'];
+        $storage->Deleted = '0';
+        return $storage;
     }
     
     public function editDoneAction()
     {
-        $person = $this->mapRequestToObject();
-        
+        $storage = $this->mapRequestToObject();
         try
         {
-            $person->save();
+            $storage->save();
             $this->view->setVars([
                 'updated' => "Successfull",
             ]);
@@ -90,12 +90,12 @@ abstract class PersonController implements Controller
     
     public function addNewDoneAction()
     {
-        $person = $this->mapRequestToObject();
+        $storage = $this->mapRequestToObject();
         
 //         var_dump($person);
         try 
         {
-            $person->save();
+            $storage->save();
         }
         catch (RuntimeException $e) {
             $errorMessage = $e->getMessage();

@@ -1,0 +1,46 @@
+<?php 
+
+$storage = "";
+$storage = $this->vars["STORAGE"];
+
+?>
+
+<h1>Storagemöglichkeit bearbeiten</h1>
+
+<form action="../editDone" id="storage" method="post">
+
+	<input type=hidden name="ID" value="<?php echo $storage->ID; ?>">
+	
+	<p><label class="h2" form="storage">Daten</label></p>
+	
+	<table>
+    	
+    	<tr>
+    		<td><label for="name">Name:</label></td>
+    		<td><input type="text" name="name" maxlength=30" value="<?php echo $storage->Name; ?>"></td>
+    	</tr>
+    	<tr>
+    		<td><label for="manufacturerID">Hersteller:</label></td>
+    		<td><select name="manufacturerID" size="1">
+    <?php 
+   
+    foreach ($this->vars["MANUFACTURER"] as $manufacturer)
+    {
+          
+        ?>
+           <option value="<?php echo $manufacturer->ID; ?>" <?php if ($manufacturer->ID == $storage->ManufacturerID) { echo "selected" ; }?>>
+           		<?php echo $manufacturer->Name ?></option>";
+           
+    <?php } ?>
+
+    		</select>
+    		</td>
+    	</tr>
+    	
+	</table>
+	
+	
+ 	<p><button type="reset">Eingaben zurücksetzen</button> 
+ 	<button type="submit">Eingaben absenden</button></p>
+
+</form>

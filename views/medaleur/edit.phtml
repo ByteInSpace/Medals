@@ -1,13 +1,13 @@
 <?php 
 
+$person = "";
 $person = $this->vars["PERSON"];
 
-    
 ?>
 
 <h1>Medaleur bearbeiten</h1>
 
-<form action="editDone" id="person">
+<form action="../editDone" id="person" method="post">
 
 	<input type=hidden name="ID" value="<?php echo $person->ID; ?>">
 	

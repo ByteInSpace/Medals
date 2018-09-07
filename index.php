@@ -22,6 +22,7 @@
     
     $actionMethodName = ucfirst($actionName).'Action';
     try {
+        
         if (!class_exists($controllerClassName)) {
              throw new \Medal\Library\NotFoundException();
         }

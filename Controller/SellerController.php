@@ -1,11 +1,12 @@
 <?php
+
 namespace Medal\Controller;
 
 use Medal\Model\Land;
-use Medal\Model\Person;
+use Medal\Model\Seller;
 use RuntimeException;
 
-abstract class PersonController implements Controller
+class SellerController implements Controller
 {
     /** @var \Medal\Library\View */
     protected $view;
@@ -14,17 +15,22 @@ abstract class PersonController implements Controller
         $this->view = $view;
     }
     
-    abstract public function showAllAction();
-      
+    public function showAllAction()
+    {
+        
+        $sellers = Seller::findAll('');
+        $this->view->setArray($sellers, "SELLER");
+        
+    }
+    
     public function editAction()
     {
-        //$id = intval($_GET['ID']);
-        $id = intval($this->getID());
-        $person = Person::findFirst($id);
+        $id = intval($_GET['ID']);
+        $seller = Seller::findFirst($id);
         $land = Land::findAll('');
         $this->view->setArray($land, "LAND");
         $this->view->setVars([
-            'PERSON' => $person,
+            'SELLER' => $seller,
         ]);
         
     }
@@ -33,7 +39,7 @@ abstract class PersonController implements Controller
     {
         try {
             $id = $this->getID();
-            Person::delete($id);
+            Seller::delete($id);
             $this->view->setVars(['deleted' => 'Successfully deleted']);
         }
         catch (RuntimeException $e) {
@@ -49,33 +55,36 @@ abstract class PersonController implements Controller
         $this->view->setArray($land, "LAND");
     }
     
-   
+    
     
     private function mapRequestToObject()
     {
-        $person = new Person();
-        $person->ID = $_POST['ID'];
-        $person->Name = $_POST['name'];
-        $person->Vorname = $_POST['vorname'];
-        $person->Curriculum_DEU = $_POST['curriculum_deu'];
-        $person->Curriculum_PL = $_POST['curriculum_pl'];
-        $person->NationID = $_POST['nationID'];
-        $person->Image = $_POST['image'];
-        $person->Image_Copyright = $_POST['image_copyright'];
-        $person->Wikipedia = $_POST['wikipedia'];
-        $person->Medaleur = (empty($_POST['medaleur']) ? '0' : '1');
-        $person->Autor = (empty($_POST['autor']) ? '0' : '1');
-        $person->Deleted = '0';
-        return $person;
+        $seller = new Seller();
+        $seller->ID = $_GET['ID'];
+        $seller->Name = $_GET['name'];
+        $seller->LandID = $_GET['landID'];
+        $seller->Street = $_GET['street'];
+        $seller->Number = $_GET['number'];
+        $seller->Zip = $_GET['zip'];
+        $seller->City = $_GET['city'];
+        $seller->Favourite = $_GET['favourite'];
+        $seller->Auction = (empty($_GET['auction']) ? '0' : '1');
+        $seller->Private = (empty($_GET['private']) ? '0' : '1');
+        $seller->Shop = (empty($_GET['shop']) ? '0' : '1');
+        $seller->Phone = $_GET['phone'];
+        $seller->Email = $_GET['Email'];
+        $seller->Homepage = $_GET['homepage'];
+        $seller->Deleted = '0';
+        return $seller;
     }
     
     public function editDoneAction()
     {
-        $person = $this->mapRequestToObject();
+        $seller = $this->mapRequestToObject();
         
         try
         {
-            $person->save();
+            $seller->save();
             $this->view->setVars([
                 'updated' => "Successfull",
             ]);
@@ -90,12 +99,12 @@ abstract class PersonController implements Controller
     
     public function addNewDoneAction()
     {
-        $person = $this->mapRequestToObject();
+        $seller = $this->mapRequestToObject();
         
-//         var_dump($person);
-        try 
+        //         var_dump($person);
+        try
         {
-            $person->save();
+            $seller->save();
         }
         catch (RuntimeException $e) {
             $errorMessage = $e->getMessage();
@@ -112,6 +121,6 @@ abstract class PersonController implements Controller
         return $urlParts[2];
     }
     
-   
+    
     
 }

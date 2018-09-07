@@ -1,0 +1,28 @@
+<h1>Autoren</h1>
+
+<table>
+
+<tr>
+	<th>Name</th>
+	<th></th>
+	<th></th>
+</tr>
+<?php 
+
+    foreach ($this->vars["MANUFACTURER"] as $manufacturer)
+    {
+        ?>
+	<tr>
+		<td><?php echo $manufacturer->Name; ?></td>        
+        <td><a href="edit/<?php echo $manufacturer->ID?>">Bearbeiten</a></td>
+        <td><a href="delete/<?php echo $manufacturer->ID?>" onclick="return confirm('Bist Du sicher?')">Löschen</a></td>
+       </tr>
+<?php 
+    }
+
+?>
+</table>
+
+<br/>
+<br/>
+<a href="addNew">Neuen anlegen</a>

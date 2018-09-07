@@ -1,0 +1,42 @@
+<h1>Verkäufer</h1>
+
+<table>
+
+<tr>
+	<th>Name</th>
+	<th>Adresse</th>
+	<th>Favorit</th>
+	<th>Typ</th>
+	<th>Telefon</th>
+	<th>Email</th>
+	<th>Homepage</th>
+	<th></th>
+	<th></th>
+</tr>
+<?php 
+
+    foreach ($this->vars["SELLER"] as $seller)
+    {
+        ?>
+	<tr>
+		<td><?php echo $seller->Name; ?></td>        
+        <td><?php echo $seller->Street; ?> <?php echo $seller->Number; ?>, <?php echo $seller->Zip; ?> <?php echo $seller->City; ?></td>
+        <td><?php echo ($seller->Favourite ? "Ja" : "Nein"); ?></td>
+        <td><?php echo ($seller->Auction ? "Auktionshaus," : ""); ?> <?php echo ($seller->Private ? "Privatperson," : ""); ?> <?php echo ($seller->Shop ? "Shop," : ""); ?></td>
+        <td><?php echo $seller->Telefon; ?></td>        
+        <td><?php echo $seller->Email; ?></td>        
+        <td><?php echo $seller->Homepage; ?></td>        
+        
+        
+        <td><a href="edit?ID=<?php echo $seller->ID?>">Bearbeiten</a></td>
+        <td><a href="delete/<?php echo $seller->ID?>" onclick="return confirm('Bist Du sicher?')">Löschen</a></td>
+       </tr>
+<?php 
+    }
+
+?>
+</table>
+
+<br/>
+<br/>
+Neuen anlegen

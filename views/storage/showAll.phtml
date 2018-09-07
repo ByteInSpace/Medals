@@ -1,0 +1,39 @@
+<h1>Lagerung der Modelle</h1>
+
+<table>
+
+<tr>
+	<th>Hersteller</th>
+	<th>Name</th>
+	<th></th>
+	<th></th>
+</tr>
+<?php 
+
+    foreach ($this->vars["STORAGE"] as $storage)
+    {
+        ?>
+	<tr>
+	<?php 
+	foreach ($this->vars["MANUFACTURER"] as $manufacturer)
+    {
+        if ($manufacturer->ID === $storage->ManufacturerID) 
+        {
+            echo "<td>$manufacturer->Name</td>\n";
+        }
+           
+    } 
+    ?>
+ 		<td><?php echo $storage->Name; ?></td>
+        <td><a href="edit/<?php echo $storage->ID?>">Bearbeiten</a></td>
+        <td><a href="delete/<?php echo $storage->ID?>" onclick="return confirm('Bist Du sicher?')">Löschen</a></td>
+       </tr>
+<?php 
+    }
+
+?>
+</table>
+
+<br/>
+<br/>
+<a href="addNew">Neuen anlegen</a>

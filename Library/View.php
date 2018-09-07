@@ -49,6 +49,12 @@ class View
         include $header;
     }
     
+    private function render_navigation()
+    {
+        $header = $this->template_path.DIRECTORY_SEPARATOR.'navigation.phtml';
+        include $header;
+    }
+    
     private function render_footer()
     {
         $footer = $this->template_path.DIRECTORY_SEPARATOR.'footer.phtml';

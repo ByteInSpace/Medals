@@ -1,11 +1,11 @@
 <?php
 namespace Medal\Controller;
 
-use Medal\Model\Land;
 use Medal\Model\Manufacturer;
+use Medal\Model\Serie;
 use RuntimeException;
 
-class ManufacturerController implements Controller
+class SerieController implements Controller
 {
     /** @var \Medal\Library\View */
     protected $view;
@@ -17,17 +17,23 @@ class ManufacturerController implements Controller
     public function showAllAction()
     {
         
-        $persons = Manufacturer::findAll('');
-        $this->view->setArray($persons, "MANUFACTURER");
+        $serie = Serie::findAll('');
+        $this->view->setArray($serie, "SERIE");
+        
+        $manufacturer = Manufacturer::findAll('');
+        $this->view->setArray($manufacturer, "MANUFACTURER");
         
     }
-      
+    
     public function editAction()
     {
+        //$id = intval($_GET['ID']);
         $id = intval($this->getID());
-        $manufacturer = Manufacturer::findFirst(intval($id));
+        $serie = Serie::findFirst($id);
+        $manufacturer = Manufacturer::findAll('');
+        $this->view->setArray($manufacturer, "MANUFACTURER");
         $this->view->setVars([
-            'MANUFACTURER' => $manufacturer,
+            'SERIE' => $serie,
         ]);
         
     }
@@ -36,7 +42,7 @@ class ManufacturerController implements Controller
     {
         try {
             $id = $this->getID();
-            Manufacturer::delete($id);
+            Serie::delete($id);
             $this->view->setVars(['deleted' => 'Successfully deleted']);
         }
         catch (RuntimeException $e) {
@@ -48,29 +54,29 @@ class ManufacturerController implements Controller
     
     public function addNewAction()
     {
-        $land = Land::findAll('');
-        $this->view->setArray($land, "LAND");
+        $manufacturer = Manufacturer::findAll('');
+        $this->view->setArray($manufacturer, "MANUFACTURER");
     }
     
-   
+    
     
     private function mapRequestToObject()
     {
-        $manufacturer = new Manufacturer();
-        $manufacturer->ID = $_POST['ID'];
-        $manufacturer->Name = $_POST['name'];
-        $manufacturer->Wikipedia = $_POST['wikipedia'];
-        $manufacturer->Deleted = '0';
-        return $manufacturer;
+        $serie = new Serie();
+        $serie->ID = $_POST['ID'];
+        $serie->Name = $_POST['name'];
+        $serie->ManufacturerID = $_POST['manufacturerID'];
+        $serie->MaximalAmount = $_POST['maximalAmount'];
+        $serie->Deleted = '0';
+        return $serie;
     }
     
     public function editDoneAction()
     {
-        $manufacturer = $this->mapRequestToObject();
-        
+        $serie = $this->mapRequestToObject();
         try
         {
-            $manufacturer->save();
+            $serie->save();
             $this->view->setVars([
                 'updated' => "Successfull",
             ]);
@@ -85,12 +91,12 @@ class ManufacturerController implements Controller
     
     public function addNewDoneAction()
     {
-        $manufacturer = $this->mapRequestToObject();
+        $serie = $this->mapRequestToObject();
         
-//         var_dump($person);
-        try 
+        //         var_dump($person);
+        try
         {
-            $manufacturer->save();
+            $serie->save();
         }
         catch (RuntimeException $e) {
             $errorMessage = $e->getMessage();
@@ -107,6 +113,6 @@ class ManufacturerController implements Controller
         return $urlParts[2];
     }
     
-   
+    
     
 }

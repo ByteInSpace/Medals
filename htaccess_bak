@@ -1,5 +1,6 @@
 RewriteEngine on
 
+RewriteRule ^(css|images|js|fonts) - [L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f

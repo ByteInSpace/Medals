@@ -1,0 +1,13 @@
+<?php
+namespace Medal\Model;
+
+class Modelauto extends ModelBase
+{
+    public $ID, $ManufacturerID, $ManufacturerNumber, $SerienID, $SerienNumber, $Name, $Skala, $ColorOut, $ColorIn, $Zustand, $Zustandbeschreibung, $MadeIn, $OVP, $Podest, $StorageID, 
+    	 $LimitedEdition, $LimitedEditionNumber, $Beschreibung, $Kommentar, $Deleted;
+    
+    public function getSource()
+    {
+        return 'au_modelauto';
+    }
+}

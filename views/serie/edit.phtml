@@ -1,0 +1,50 @@
+<?php 
+
+$serie = "";
+$serie = $this->vars["SERIE"];
+
+?>
+
+<h1>Serie bearbeiten</h1>
+
+<form action="../editDone" id="serie" method="post">
+
+	<input type=hidden name="ID" value="<?php echo $serie->ID; ?>">
+	
+	<p><label class="h2" form="serie">Daten der Serie</label></p>
+	
+	<table>
+    	
+    	<tr>
+    		<td><label for="name">Name:</label></td>
+    		<td><input type="text" name="name" maxlength=30" value="<?php echo $serie->Name; ?>"></td>
+    	</tr>
+    	<tr>
+    		<td><label for="manufacturerID">Hersteller:</label></td>
+    		<td><select name="manufacturerID" size="1">
+    <?php 
+   
+    foreach ($this->vars["MANUFACTURER"] as $manufacturer)
+    {
+          
+        ?>
+           <option value="<?php echo $manufacturer->ID; ?>" <?php if ($manufacturer->ID == $serie->ManufacturerID) { echo "selected" ; }?>>
+           		<?php echo $manufacturer->Name ?></option>";
+           
+    <?php } ?>
+
+    		</select>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td><label for="maximalAmount">Höchster Wert::</label></td>
+    		<td><input type="text" name="maximalAmount" maxlength=30" value="<?php echo $serie->MaximalAmount; ?>"></td>
+    	</tr>
+    	
+	</table>
+	
+	
+ 	<p><button type="reset">Eingaben zurücksetzen</button> 
+ 	<button type="submit">Eingaben absenden</button></p>
+
+</form>
